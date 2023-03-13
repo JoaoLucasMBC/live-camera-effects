@@ -6,6 +6,8 @@ from rotation import RotationEffect
 
 class Program():
 
+    ESTADOS = {"rodando":False, "wasd":False, "rapido":1}
+
 
     def __init__(self, width, height):
         self.width = width
@@ -24,8 +26,6 @@ class Program():
         # Esse loop é igual a um loop de jogo: ele encerra quando apertamos 'q' no teclado.
         angle = 0
         while True:
-            angle += 1
-
             # Captura um frame da câmera
             ret, frame = cap.read()
 
@@ -41,7 +41,38 @@ class Program():
             # A variável image é um np.array com shape=(width, height, colors)
             image = np.array(frame).astype(float)/255
 
+            # ANGLE MANIPULATION
+            if not self.ESTADOS["wasd"]:
+                if cv.waitKey(1) == ord('r'):
+                    if self.ESTADOS["rodando"]:
+                        self.ESTADOS["rodando"] = False
+                    else:
+                        self.ESTADOS["rodando"] = True
+                    print(self.ESTADOS["rodando"])
 
+            if not self.ESTADOS["rodando"]:
+                if cv.waitKey(1) == ord('w'):
+                    if self.ESTADOS["wasd"]:
+                        self.ESTADOS["wasd"] = False
+                    else:
+                        self.ESTADOS["wasd"] = True
+                    print(self.ESTADOS["wasd"])
+
+            if cv.waitKey(1) == ord('f'):
+                self.ESTADOS["rapido"] *= 2
+            if cv.waitKey(1) == ord('s'):
+                self.ESTADOS["rapido"] = 1
+
+            if self.ESTADOS["rodando"]:
+                angle += 1 * self.ESTADOS["rapido"]
+
+            if self.ESTADOS["wasd"]:
+                if cv.waitKey(1) == ord('d'):
+                    angle += 1 * self.ESTADOS["rapido"]
+                elif cv.waitKey(1) == ord('a'):
+                    angle -= 1 * self.ESTADOS["rapido"]
+
+            print(angle, self.ESTADOS["rapido"])
             ## TRANSFORMATION
             image_ = RotationEffect.rotate(image, angle)
 
@@ -51,7 +82,7 @@ class Program():
             
             # Se aperto 'q', encerro o loop
             if cv.waitKey(1) == ord('q'):
-                break
+                break        
 
         # Ao sair do loop, vamos devolver cuidadosamente os recursos ao sistema!
         cap.release()
