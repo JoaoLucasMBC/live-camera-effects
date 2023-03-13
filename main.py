@@ -41,9 +41,11 @@ class Program():
             # A variável image é um np.array com shape=(width, height, colors)
             image = np.array(frame).astype(float)/255
 
+            key = cv.waitKey(1)
+
             # ANGLE MANIPULATION
             if not self.ESTADOS["wasd"]:
-                if cv.waitKey(1) == ord('r'):
+                if key == ord('r'):
                     if self.ESTADOS["rodando"]:
                         self.ESTADOS["rodando"] = False
                     else:
@@ -51,28 +53,28 @@ class Program():
                     print(self.ESTADOS["rodando"])
 
             if not self.ESTADOS["rodando"]:
-                if cv.waitKey(1) == ord('w'):
+                if key == ord('w'):
                     if self.ESTADOS["wasd"]:
                         self.ESTADOS["wasd"] = False
                     else:
                         self.ESTADOS["wasd"] = True
                     print(self.ESTADOS["wasd"])
 
-            if cv.waitKey(1) == ord('f'):
+            if self.ESTADOS["wasd"]:
+                key2 = cv.waitKey(1)
+                if key2 == ord('d'):
+                    angle += 1 * self.ESTADOS["rapido"]
+                elif key2 == ord('a'):
+                    angle -= 1 * self.ESTADOS["rapido"]
+
+            if key == ord('f'):
                 self.ESTADOS["rapido"] *= 2
-            if cv.waitKey(1) == ord('s'):
+            if key == ord('s'):
                 self.ESTADOS["rapido"] = 1
 
             if self.ESTADOS["rodando"]:
                 angle += 1 * self.ESTADOS["rapido"]
 
-            if self.ESTADOS["wasd"]:
-                if cv.waitKey(1) == ord('d'):
-                    angle += 1 * self.ESTADOS["rapido"]
-                elif cv.waitKey(1) == ord('a'):
-                    angle -= 1 * self.ESTADOS["rapido"]
-
-            print(angle, self.ESTADOS["rapido"])
             ## TRANSFORMATION
             image_ = RotationEffect.rotate(image, angle)
 
@@ -81,7 +83,7 @@ class Program():
             cv.imshow('Minha Imagem!', image_)
             
             # Se aperto 'q', encerro o loop
-            if cv.waitKey(1) == ord('q'):
+            if key == ord('q'):
                 break        
 
         # Ao sair do loop, vamos devolver cuidadosamente os recursos ao sistema!
