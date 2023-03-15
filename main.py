@@ -2,16 +2,18 @@ import numpy as np
 import cv2 as cv
 
 from rotation import RotationEffect
+from angle import Angle
 
 
 class Program():
 
-    ESTADOS = {"rodando":False, "wasd":False, "rapido":1}
-
-
     def __init__(self, width, height):
         self.width = width
         self.height = height
+        self.commands = [ord("r"),ord("t"),ord("w"), ord("x")]
+        self.aux_commands = [ord("d"), ord("a"), ord("f")]
+        self.command = ""
+        self.aux_command = ""
 
 
     def run(self):
@@ -44,36 +46,15 @@ class Program():
             key = cv.waitKey(1)
 
             # ANGLE MANIPULATION
-            if not self.ESTADOS["wasd"]:
-                if key == ord('r'):
-                    if self.ESTADOS["rodando"]:
-                        self.ESTADOS["rodando"] = False
-                    else:
-                        self.ESTADOS["rodando"] = True
-                    print(self.ESTADOS["rodando"])
+            if key in self.commands:
+                self.command = key
 
-            if not self.ESTADOS["rodando"]:
-                if key == ord('w'):
-                    if self.ESTADOS["wasd"]:
-                        self.ESTADOS["wasd"] = False
-                    else:
-                        self.ESTADOS["wasd"] = True
-                    print(self.ESTADOS["wasd"])
+            if key in self.aux_commands:
+                self.aux_command = key
+                angle = Angle.main(self.aux_command, angle)
+                self.aux_command = ""
 
-            if self.ESTADOS["wasd"]:
-                key2 = cv.waitKey(1)
-                if key2 == ord('d'):
-                    angle += 1 * self.ESTADOS["rapido"]
-                elif key2 == ord('a'):
-                    angle -= 1 * self.ESTADOS["rapido"]
-
-            if key == ord('f'):
-                self.ESTADOS["rapido"] *= 2
-            if key == ord('s'):
-                self.ESTADOS["rapido"] = 1
-
-            if self.ESTADOS["rodando"]:
-                angle += 1 * self.ESTADOS["rapido"]
+            angle = Angle.main(self.command, angle)
 
             ## TRANSFORMATION
             image_ = RotationEffect.rotate(image, angle)

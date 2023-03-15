@@ -22,7 +22,7 @@ class RotationEffect():
         Xd = Xd[:, filtro]
         X = X[:, filtro]
 
-        image_[Xd[0,:], Xd[1,:], :] = image[X[0,:], X[1,:], :]
+        image_[Xd[0,:], Xd[1,:], :] = image[X[0,:], X[1,:], :]  
 
         return image_
         
