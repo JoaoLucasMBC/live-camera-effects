@@ -39,9 +39,9 @@ class Angle:
                 cls.ESTADOS["wasd"] = True
             if cls.ESTADOS["wasd"]:
                 if function == ord("d"):
-                    angle += cls.ESTADOS["incremento"]
+                    angle += 5
                 elif function == ord("a"):
-                    angle -= cls.ESTADOS["incremento"]
+                    angle -= 5
         return angle
     
     @classmethod
