@@ -82,18 +82,31 @@ Todas as transformações são realizadas por classes auxiliares (`Rotation` e `
 
 Visando evitar o surgimento de artefatos e pixels vazios na imagem, a transformação é feita de maneira inversa: o progrema começa com uma matriz vazia de destino e utiliza as matrizes inversas das transformações para determinar os pixels da imagem original que devem "alimentar" os destinos. Por exemplo, a matriz de origem `X` de uma rotação é descoberta a partir da seguinte pré-multiplicação:  
 
-ADASDASDASDA  
+$X = U^{-1} X_d$
+
+Onde $U$ é a matriz de todas as transformações calculada como conjunto dos próximos passos.
 
 A matriz de rotação R é determinada da seguinte maneira (exemplo de um ângulo de 45°):
 
 $$
 R = 
 \begin{bmatrix}
+    \cos(\theta) & -\sin(\theta) & 0 \\
+    \cos(\theta) & \cos(\theta) & 0 \\
+    0 & 0 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
     \cos(45°) & -\sin(45°) & 0 \\
     \cos(45°) & \cos(45°) & 0 \\
     0 & 0 & 1
+\end{bmatrix} = 
+\begin{bmatrix}
+    0.7 & -0.7 & 0 \\
+    0.7 & 0.7 & 0 \\
+    0 & 0 & 1
 \end{bmatrix}
 $$
+<br/>
 
 Para o redimensionamento da imagem, dobrando (Zoom In) ou dividindo por dois (Zoom Out) o tamanho, a matriz respectiva é selecionada pelo input do usuário:
 
@@ -117,17 +130,31 @@ $$
 \end{bmatrix}
 $$
 
-Ademais, como as transformações são centradas na **origem** do sistema de coordenadas, que está na borda, antes delas serem realizadas é preciso transportar a imagem para a origem, utilizando a seguinte matriz `T`:
+Ademais, como as transformações são centradas na **origem** do sistema de coordenadas, que está na borda, antes delas serem realizadas é preciso transportar a imagem para a origem, utilizando a seguinte matriz $T$:
 
-ADSASDASDASDDS
+$$
+\begin{bmatrix}
+    1 & 0 & -\Delta x \\
+    0 & 1 & -\Delta y \\
+    0 & 0 & 1
+\end{bmatrix}
+$$ 
 
-E, ao fim da transformação, o centro da imagem é transladado de volta por `T2`:
+Onde as variações são menos as dimensões da imagem divididos por 2, para que o centro seja movido. 
 
-ASDASDASDASDASD
+E, ao fim da transformação, o centro da imagem é transladado de volta por $T_2$:
+
+$$
+\begin{bmatrix}
+    1 & 0 & \Delta x \\
+    0 & 1 & \Delta y \\
+    0 & 0 & 1
+\end{bmatrix}
+$$
 
 Portanto, a matriz de origem é determinada utilizando as matrizes inversas das transformações aplicadas no destino `Xd`:
 
-$X = T2 R^{-1} E^{-1} T D$
+$X = T_2 R^{-1} E^{-1} T D$
 
 Finalmente, essa matriz `X` de coordenadas representa de onde saem os pixels que acabam nas coordenadas `Xd` da imagem final, que é renderizada na tela.
 
