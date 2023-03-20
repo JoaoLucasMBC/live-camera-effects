@@ -17,9 +17,9 @@ class RotationEffect():
         T2 = np.array([[1, 0, image.shape[0]/2], [0, 1, image.shape[1]/2], [0, 0, 1]])
 
         if extra_transformation == ord("c"):
-            X = T2 @ np.linalg.inv(R) @ T @ cls.EXPANSION_MATRIX @ Xd
+            X = T2 @ np.linalg.inv(R) @ cls.EXPANSION_MATRIX @ T @ Xd
         elif extra_transformation == ord("e"):
-            X = T2 @ np.linalg.inv(R) @ T @ cls.CONTRACTION_MATRIX @ Xd
+            X = T2 @ np.linalg.inv(R) @ cls.CONTRACTION_MATRIX @ T @ Xd
         else:
             X = T2 @ np.linalg.inv(R) @ T @ Xd
 
