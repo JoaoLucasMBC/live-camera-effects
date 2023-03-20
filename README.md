@@ -113,7 +113,7 @@ Para o redimensionamento da imagem, dobrando (Zoom In) ou dividindo por dois (Zo
 * Zoom In: 
 
 $$
-\begin{bmatrix}
+E = \begin{bmatrix}
     2 & 0 & 0\\
     0 & 2 & 0 \\
     0 & 0 & 1
@@ -123,7 +123,7 @@ $$
 * Zoom Out: 
 
 $$
-\begin{bmatrix}
+E = \begin{bmatrix}
     0.5 & 0 & 0\\
     0 & 0.5 & 0 \\
     0 & 0 & 1
@@ -133,7 +133,7 @@ $$
 Ademais, como as transformações são centradas na **origem** do sistema de coordenadas, que está na borda, antes delas serem realizadas é preciso transportar a imagem para a origem, utilizando a seguinte matriz $T$:
 
 $$
-\begin{bmatrix}
+T = \begin{bmatrix}
     1 & 0 & -\Delta x \\
     0 & 1 & -\Delta y \\
     0 & 0 & 1
@@ -145,7 +145,7 @@ Onde as variações são menos as dimensões da imagem divididos por 2, para que
 E, ao fim da transformação, o centro da imagem é transladado de volta por $T_2$:
 
 $$
-\begin{bmatrix}
+T2 = \begin{bmatrix}
     1 & 0 & \Delta x \\
     0 & 1 & \Delta y \\
     0 & 0 & 1
@@ -154,7 +154,9 @@ $$
 
 Portanto, a matriz de origem é determinada utilizando as matrizes inversas das transformações aplicadas no destino `Xd`:
 
-$X = T_2 R^{-1} E^{-1} T D$
+$U = T_2 R E T$
+
+$X = U^{-1} X_d$
 
 Finalmente, essa matriz `X` de coordenadas representa de onde saem os pixels que acabam nas coordenadas `Xd` da imagem final, que é renderizada na tela.
 
