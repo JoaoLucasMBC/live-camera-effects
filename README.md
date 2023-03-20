@@ -86,11 +86,36 @@ ADASDASDASDA
 
 A matriz de rotação R é determinada da seguinte maneira (exemplo de um ângulo de 45°):
 
-ADASDASDASDAS
+$$
+R = 
+\begin{bmatrix}
+    \cos(45°) & -\sin(45°) & 0 \\
+    \cos(45°) & \cos(45°) & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+$$
 
-Para o zoom in ou zoom out da imagem, a matriz respectiva é selecionada pelo input do usuário:
+Para o redimensionamento da imagem, dobrando (Zoom In) ou dividindo por dois (Zoom Out) o tamanho, a matriz respectiva é selecionada pelo input do usuário:
 
-ADSASDASDASD
+* Zoom In: 
+
+$$
+\begin{bmatrix}
+    2 & 0 & 0\\
+    0 & 2 & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+$$
+
+* Zoom Out: 
+
+$$
+\begin{bmatrix}
+    0.5 & 0 & 0\\
+    0 & 0.5 & 0 \\
+    0 & 0 & 1
+\end{bmatrix}
+$$
 
 Ademais, como as transformações são centradas na **origem** do sistema de coordenadas, que está na borda, antes delas serem realizadas é preciso transportar a imagem para a origem, utilizando a seguinte matriz `T`:
 
