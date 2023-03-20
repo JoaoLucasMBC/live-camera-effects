@@ -51,4 +51,4 @@ class Angle:
     @classmethod 
     def restart(cls):
         cls.ESTADOS = {"rotate":False, "reverse":False,"wasd":False, "incremento":1}
-        return 1
+        return 0
