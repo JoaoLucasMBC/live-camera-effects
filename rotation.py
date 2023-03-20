@@ -2,8 +2,11 @@ import numpy as np
 
 class RotationEffect():
 
+    EXPANSION_MATRIX = np.array([[2,0,0],[0,2,0],[0,0,1]])
+    CONTRACTION_MATRIX = np.array([[0.5,0,0],[0,0.5,0],[0,0,1]])
+
     @classmethod
-    def rotate(cls, image, angle):
+    def rotate(cls, image, extra_transformation, angle):
         image_ = np.zeros_like(image)
         
         Xd = cls.criar_indices(0, image.shape[0], 0, image.shape[1])
@@ -13,7 +16,12 @@ class RotationEffect():
         T = np.array([[1, 0, -1*image.shape[0]/2], [0, 1, -1*image.shape[1]/2], [0, 0, 1]])
         T2 = np.array([[1, 0, image.shape[0]/2], [0, 1, image.shape[1]/2], [0, 0, 1]])
 
-        X = T2 @ np.linalg.inv(R) @ T @ Xd
+        if extra_transformation == ord("c"):
+            X = T2 @ np.linalg.inv(R) @ T @ cls.EXPANSION_MATRIX @ Xd
+        elif extra_transformation == ord("e"):
+            X = T2 @ np.linalg.inv(R) @ T @ cls.CONTRACTION_MATRIX @ Xd
+        else:
+            X = T2 @ np.linalg.inv(R) @ T @ Xd
 
         Xd = Xd.astype(int)
         X = X.astype(int)

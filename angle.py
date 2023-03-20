@@ -13,7 +13,7 @@ class Angle:
         elif function == ord('f'):
             cls.faster()
         elif function == ord("x"):
-            cls.restart()
+            return cls.restart()
         return angle
 
     @classmethod
@@ -51,3 +51,4 @@ class Angle:
     @classmethod 
     def restart(cls):
         cls.ESTADOS = {"rotate":False, "reverse":False,"wasd":False, "incremento":1}
+        return 1

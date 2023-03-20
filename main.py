@@ -10,9 +10,11 @@ class Program():
     def __init__(self, width, height):
         self.width = width
         self.height = height
-        self.commands = [ord("r"),ord("t"),ord("w"), ord("x")]
+        self.rotation_commands = [ord("r"),ord("t"),ord("w"), ord("x")]
+        self.zoom_commands = [ord("e"), ord("c")]
         self.aux_commands = [ord("d"), ord("a"), ord("f")]
         self.command = ""
+        self.extra_transformation = ""
         self.aux_command = ""
 
 
@@ -46,7 +48,7 @@ class Program():
             key = cv.waitKey(1)
 
             # ANGLE MANIPULATION
-            if key in self.commands:
+            if key in self.rotation_commands:
                 self.command = key
 
             if key in self.aux_commands:
@@ -57,7 +59,11 @@ class Program():
             angle = Angle.main(self.command, angle)
 
             ## TRANSFORMATION
-            image_ = RotationEffect.rotate(image, angle)
+            if key in self.zoom_commands:
+                self.extra_transformation = key
+            elif key == ord('x'):
+                self.extra_transformation = ""
+            image_ = RotationEffect.rotate(image, self.extra_transformation, angle)
 
 
             # Agora, mostrar a imagem na tela!
