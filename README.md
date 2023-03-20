@@ -40,11 +40,18 @@ Agora você pode começar a manipular a sua câmera com rotações!
 ---
 <br/>
 
-## Testando com `demo.py`
+## Testando o Programa!
 
-Caso o usuário deseje ver uma demonstração de todas as funcionalidades e efeitos do programa de maneira automática, basta rodar o arquivo `demo.py` e observar as seguintes transformações (você não precisa fazer nada!) seguindo o seguinte roteiro:
+Caso o usuário deseje ver uma demonstração de todas as funcionalidades e efeitos do programa, basta seguir o seguinte roteiro:
 
-ROTEIRO
+* Primeiramente, rode o arquivo main.py, para iniciar a câmera;
+* Para entrar no modo rotação, aperte `R` ou `T`, para rodar no sentido horário ou anti-horário!
+* Ainda no modo rotação, aperte `F` para aumentar a velocidade angular da rotação!
+* Agora, aperte `X` para voltar ao normal, e poder acessar o modo WASD.
+* Então, aperte `W` para entrar no modo WASD, e aperte `A` ou `S` algumas vezes, para girar de pouco em pouco a imagem!
+* Aperte X para voltar ao normal, e agora experimente expandir ou contrair a imagem da sua câmera, usando `E` ou `C`!
+* Experimente rodar a imagem usando `R` ou `T` enquanto sua imagem está contraída!
+* Agora experimente misturar os efeitos, lembrando de apertar `X` antes de trocar do modo rotação para o modo WASD!
 
 ---
 <br/>
