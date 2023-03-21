@@ -12,7 +12,7 @@ class RotationEffect():
         Xd = cls.criar_indices(0, image.shape[0], 0, image.shape[1])
         Xd = np.vstack ( (Xd, np.ones( Xd.shape[1]) ))
 
-        R = cls.rotation_matrix(angle)
+        R = cls.rotation_matrix(np.pi * 2 * angle)
         T = np.array([[1, 0, -1*image.shape[0]/2], [0, 1, -1*image.shape[1]/2], [0, 0, 1]])
         T2 = np.array([[1, 0, image.shape[0]/2], [0, 1, image.shape[1]/2], [0, 0, 1]])
 
