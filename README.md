@@ -45,10 +45,10 @@ Agora você pode começar a manipular a sua câmera com rotações!
 Caso o usuário deseje ver uma demonstração de todas as funcionalidades e efeitos do programa, basta seguir o seguinte roteiro:
 
 * Primeiramente, rode o arquivo main.py, para iniciar a câmera;
-* Para entrar no modo rotação, aperte `R` ou `T`, para rodar no sentido anti-horário ou horário (já que o ângulo cresce para a esquerda)!
+* Para entrar no modo rotação, aperte `R` ou `T`, para rodar no sentido horário ou anti-horário (o ângulo cresce para baixo no circúlo trigonométrico pois o multiplicamos por -1)!
 * Ainda no modo rotação, aperte `F` para aumentar a velocidade angular da rotação!
 * Agora, aperte `X` para voltar ao normal, e poder acessar o modo WASD.
-* Então, aperte `W` para entrar no modo WASD, e aperte `A` ou `S` algumas vezes, para girar de pouco em pouco a imagem!
+* Então, aperte `W` para entrar no modo WASD, e aperte `A` ou `D` algumas vezes, para girar de pouco em pouco a imagem!
 * Aperte X para voltar ao normal, e agora experimente expandir ou contrair a imagem da sua câmera, usando `E` ou `C`!
 * Experimente rodar a imagem usando `R` ou `T` enquanto sua imagem está contraída!
 * Agora experimente misturar os efeitos, lembrando de apertar `X` antes de trocar do modo rotação para o modo WASD!
@@ -67,8 +67,8 @@ A partir desse momento, os efeitos são aplicados por classes complementares que
 
 ### Comandos
 
-* `r` - começa a rotação da imagem no sentido anti-horário, com velocidade de 1°/frame  
-* `t` - começa a rotação da imagem no sentido horário, com velocidade de 1°/frame (ângulos são convertidos para rad nos cálculos)  
+* `r` - começa a rotação da imagem no sentido horário, com velocidade de 1°/frame  
+* `t` - começa a rotação da imagem no sentido anti-horário, com velocidade de 1°/frame (ângulos são convertidos para rad nos cálculos e multiplicados por -1)  
 * `f` - progressivamente dobra a velocidade angular da rotação (não funciona no modo de controle manual)
 * `w` - entra no modo de controle manual de rotação utilizando as teclas `a` e `d`, progredindo 5° por clique das teclas
 * `e` e `c` - controlam a expansão e contração da imagem, respectivamente, em uma razão de dois. Ou o zoom dobra ou é diminuido em 50%  
@@ -87,7 +87,7 @@ Todas as transformações são realizadas por classes auxiliares (`Rotation` e `
 
 #### Rotation
 
-Visando evitar o surgimento de artefatos e pixels vazios na imagem, a transformação é feita de maneira inversa: o progrema começa com uma matriz vazia de destino e utiliza as matrizes inversas das transformações para determinar os pixels da imagem original que devem "alimentar" os destinos. Por exemplo, a matriz de origem `X` de uma rotação é descoberta a partir da seguinte pré-multiplicação:  
+Visando evitar o surgimento de artefatos e pixels vazios na imagem, a transformação é feita de maneira inversa: o programa começa com uma matriz vazia de destino e utiliza as matrizes inversas das transformações para determinar os pixels da imagem original que devem "alimentar" os destinos. Por exemplo, a matriz de origem `X` de uma rotação é descoberta a partir da seguinte pré-multiplicação:  
 
 $X = U^{-1} X_d$
 
@@ -179,7 +179,7 @@ A classe `Angle` realiza a manipulação do ângulo de rotação a cada loop do 
 Além disso, o método `restart` retorna todos os parâmetros para as condições iniciais:
 
 * `rotate = False` (parado)  
-* `reverse = False` (direção anti-horária, a qual cresce o ângulo)  
+* `reverse = False` (direção horária, a qual cresce o ângulo para o lado negativo, já que o multiplicamos por -1 para manter esse efeito)  
 * `wasd = False` (não está no modo manual)  
 * `incremento = 1` (velocidade angular de 1°/frame)
 * `angle = 0` (retorna para o ângulo inicial)
